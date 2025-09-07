@@ -51,6 +51,6 @@ jobs:
         run: |
           docker buildx build \
             --platform linux/amd64 \
-            -t ghcr.io/${{ github.repository }}/source-tripletex-put:${{ steps.get-sha.outputs.short_sha }} \
-            -t ghcr.io/${{ github.repository }}/source-tripletex-put:latest \
+            -t ghcr.io/${{ github.repository_owner }}/source-tripletex-put:${{ steps.get-sha.outputs.short_sha }} \
+            -t ghcr.io/${{  github.repository_owner }}/source-tripletex-put:latest \
             --push .
