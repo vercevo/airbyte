@@ -10,28 +10,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: source-tripletex-put
+
     steps:
-      # Checkout code
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Set up Python (for lint/tests)
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      # Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -e ".[dev]"
 
-      # Run unit tests
       - name: Run tests
         run: pytest -v
 
-      # Build Docker image
       - name: Build Docker image
         run: |
           docker build . -t ghcr.io/${{ github.repository }}/source-tripletex-put:latest
