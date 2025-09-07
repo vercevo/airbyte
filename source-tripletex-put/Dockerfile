@@ -1,15 +1,20 @@
-FROM airbyte/python-connector-base:1.3.0
+FROM airbyte/python-connector-base:1.1.0
 
+# Switch to root for installation
 USER root
 
-# Ensure a valid non-root user exists
+# Ensure airbyte user exists (UID 1000 is standard)
 RUN useradd -m -u 1000 -s /bin/bash airbyte
 
+# Copy connector code
 COPY . /airbyte/integration_code
 WORKDIR /airbyte/integration_code
+
+# Install connector
 RUN pip install --no-cache-dir .
 
-# Drop to non-root
+# Drop back to non-root user
 USER airbyte
 
+# Entrypoint for Airbyte
 ENTRYPOINT ["python", "-m", "source_tripletex_put"]
