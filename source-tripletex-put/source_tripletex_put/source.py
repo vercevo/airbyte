@@ -20,3 +20,4 @@ def main():
     from airbyte_cdk.entrypoint import launch
     source = SourceMyApi()
     launch(source, sys.argv[1:])
+    
